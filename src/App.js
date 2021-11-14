@@ -3,12 +3,18 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
 
-import { MapContainer, TileLayer, Marker, Popup, LayersControl } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  LayersControl,
+} from "react-leaflet";
 import { latLngBounds, Icon, tileLayer } from "leaflet";
 
 import "./App.css";
 
-const {BaseLayer} = LayersControl;
+const { BaseLayer } = LayersControl;
 
 function App() {
   // const [latitude, setLatitude] = useState(0);
@@ -36,8 +42,8 @@ function App() {
       <LayersControl>
         <BaseLayer checked name="OpenStreet.Grey">
           <TileLayer
-          url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" // Grey Basemap color
-        attribution='
+            url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" // Grey Basemap color
+            attribution='
           &copy; <a href="https://stadiamaps.com/">Stadia Maps</a> 
           &copy; <a href="https://openmaptiles.org/">Open Map Tiles</a> 
           &copy; <a href="https://www.openstreetmap.org/about/">OpenStreetMap contributors</a> 
@@ -55,7 +61,6 @@ function App() {
         </BaseLayer>
       </LayersControl>
 
-      
       {/* <TileLayer
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" // Grey Basemap color
         attribution='
@@ -65,7 +70,7 @@ function App() {
      '  //copyright stuff
         //bounds={bounds}
       /> */}
-      
+
       {data.stations?.map(
         (
           station // Read through the data in the JSON file
@@ -89,6 +94,10 @@ function App() {
             <Popup>
               {
                 station.name // Display location on popup
+              }
+              {" | Capacity of Dock: "}
+              {
+                station.capacity // Displays capacity of bike dock
               }
             </Popup>
           </Marker>
