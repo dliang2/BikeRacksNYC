@@ -13,11 +13,12 @@ function App() {
   // const [longitude, setLongitude] = useState(0);
   // const bounds = latLngBounds([40.0341, -74.2727], [41.2919, -71.9101]);
 
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([]); // Store data in here
+
   useEffect(() => {
     axios
-      .get("https://gbfs.citibikenyc.com/gbfs/en/station_information.json")
-      .then((res) => setData(res.data.data))
+      .get("https://gbfs.citibikenyc.com/gbfs/en/station_information.json") // Pull the data
+      .then((res) => setData(res.data.data)) // Set the data
       .catch((err) => console.log(err));
   }, []);
 
@@ -28,13 +29,15 @@ function App() {
       zoom={11}
       maxZoom={18}
       style={{ width: "100%", height: "900px" }}
-      fillColor="grey"
+      // fillColor="grey"
     >
       <TileLayer
-        url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-        attribution='&copy;
-     <a href="http://osm.org/copyright">OpenStreetMap</a> 
-     contributors'
+        url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" // Grey Basemap color
+        attribution='
+        &copy; <a href="https://stadiamaps.com/">Stadia Maps</a> 
+        &copy; <a href="https://openmaptiles.org/">Open Map Tiles</a> 
+        &copy; <a href="https://www.openstreetmap.org/about/">OpenStreetMap contributors</a> 
+     ' // copyright stuff
         // bounds={bounds}
       />
       {data.stations?.map(
@@ -52,11 +55,16 @@ function App() {
               new Icon({
                 iconUrl:
                   "https://www.freeiconspng.com/uploads/circle-png-4.png",
-                iconSize: [10, 10],
+                iconSize: [7, 7],
+                iconAnchor: [10, 10],
               })
             }
           >
-            <Popup>{station.name}</Popup>
+            <Popup>
+              {
+                station.name // Display location on popup
+              }
+            </Popup>
           </Marker>
         )
       )}
