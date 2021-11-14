@@ -11,9 +11,41 @@ import BikeRackData from "./data/dummyData.json"; // Using smaller data because 
 
 import "./App.css";
 
+function _load(url) {
+  return new Promise((resolve, reject) => {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+    script.async = true;
+    script.src = url;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  })
+}
+
 function App() {
   // const [latitude, setLatitude] = useState(0);
   // const [longitude, setLongitude] = useState(0);
+
+  
+  //let response = fetch('https://gbfs.citibikenyc.com/gbfs/en/station_information.json');
+  //let responseJson = response.json();
+  //console.log(responseJson)
+
+  /*
+  var jsonData = fetch('https://gbfs.citibikenyc.com/gbfs/en/station_information.json')
+  .then(response => response.json())
+  .then((jsonData) => {
+    // jsonData is parsed json object received from url
+    console.log(jsonData)
+  })
+  .catch((error) => {
+    // handle your errors here
+    console.error(error)
+  })
+
+  console.log(jsonData)
+*/
 
   return (
     // Generate a world map centered on NYC
@@ -25,22 +57,22 @@ function App() {
      contributors'
       />
 
-      {BikeRackData.data.map(
+      {BikeRackData.data.stations.map(
         (
           bikerack // Read through the data in the JSON file
         ) => (
           <Marker // Display every Bike Rack in the data
-            key={bikerack.id}
+            key={bikerack.station_id}
             position={[
-              bikerack[8].split(" ")[2].slice(0, -1), // get LATITUDE
-              bikerack[8].split(" ")[1].slice(1), // get LONGITUDE
+              bikerack.lat, // get LATITUDE
+              bikerack.lon, // get LONGITUDE
             ]}
             icon={
               // Set image of the marker icon
               new Icon({
                 iconUrl:
                   "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png",
-                iconSize: [25, 41],
+                iconSize: [10, 16],
                 iconAnchor: [12, 41],
               })
             }
