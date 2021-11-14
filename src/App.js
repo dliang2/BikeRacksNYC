@@ -3,10 +3,12 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
 
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { latLngBounds, Icon } from "leaflet";
+import { MapContainer, TileLayer, Marker, Popup, LayersControl } from "react-leaflet";
+import { latLngBounds, Icon, tileLayer } from "leaflet";
 
 import "./App.css";
+
+const {BaseLayer} = LayersControl;
 
 function App() {
   // const [latitude, setLatitude] = useState(0);
@@ -31,15 +33,39 @@ function App() {
       style={{ width: "100%", height: "900px" }}
       // fillColor="grey"
     >
-      <TileLayer
+      <LayersControl>
+        <BaseLayer checked name="OpenStreet.Grey">
+          <TileLayer
+          url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" // Grey Basemap color
+        attribution='
+          &copy; <a href="https://stadiamaps.com/">Stadia Maps</a> 
+          &copy; <a href="https://openmaptiles.org/">Open Map Tiles</a> 
+          &copy; <a href="https://www.openstreetmap.org/about/">OpenStreetMap contributors</a> 
+          ' // copyright stuff
+            // bounds={bounds}
+          />
+        </BaseLayer>
+        <BaseLayer name="OpenStreet.Street">
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy;
+            <a href="http://osm.org/copyright">OpenStreetMap</a> 
+            contributors'
+          />
+        </BaseLayer>
+      </LayersControl>
+
+      
+      {/* <TileLayer
         url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" // Grey Basemap color
         attribution='
         &copy; <a href="https://stadiamaps.com/">Stadia Maps</a> 
         &copy; <a href="https://openmaptiles.org/">Open Map Tiles</a> 
         &copy; <a href="https://www.openstreetmap.org/about/">OpenStreetMap contributors</a> 
-     ' // copyright stuff
-        // bounds={bounds}
-      />
+     '  //copyright stuff
+        //bounds={bounds}
+      /> */}
+      
       {data.stations?.map(
         (
           station // Read through the data in the JSON file
