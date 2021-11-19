@@ -17,18 +17,15 @@ import "./App.css";
 const { BaseLayer } = LayersControl;
 
 function App() {
-  // const [latitude, setLatitude] = useState(0);
-  // const [longitude, setLongitude] = useState(0);
-  // const bounds = latLngBounds([40.0341, -74.2727], [41.2919, -71.9101]);
-
-  const [data, setData] = useState([]); // Store data in here
+  const [bikeRacks, setBikeRacks] = useState([]); // Store data in here
 
   useEffect(() => {
     axios
-      .get("https://gbfs.citibikenyc.com/gbfs/en/station_information.json") // Pull the data
-      .then((res) => setData(res.data.data)) // Set the data
+      .get("https://data.cityofnewyork.us/resource/au7q-njtk.json") // Pull the data
+      .then((res) => setBikeRacks(res.data)) // Set the data
       .catch((err) => console.log(err));
   }, []);
+  console.log(bikeRacks);
 
   return (
     // Generate a world map centered on NYC
@@ -37,7 +34,6 @@ function App() {
       zoom={11}
       maxZoom={18}
       style={{ width: "100%", height: "900px" }}
-      // fillColor="grey"
     >
       <LayersControl>
         <BaseLayer checked name="OpenStreet.Grey">
@@ -47,8 +43,7 @@ function App() {
           &copy; <a href="https://stadiamaps.com/">Stadia Maps</a> 
           &copy; <a href="https://openmaptiles.org/">Open Map Tiles</a> 
           &copy; <a href="https://www.openstreetmap.org/about/">OpenStreetMap contributors</a> 
-          ' // copyright stuff
-            // bounds={bounds}
+          '
           />
         </BaseLayer>
         <BaseLayer name="OpenStreet.Street">
@@ -61,25 +56,15 @@ function App() {
         </BaseLayer>
       </LayersControl>
 
-      {/* <TileLayer
-        url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" // Grey Basemap color
-        attribution='
-        &copy; <a href="https://stadiamaps.com/">Stadia Maps</a> 
-        &copy; <a href="https://openmaptiles.org/">Open Map Tiles</a> 
-        &copy; <a href="https://www.openstreetmap.org/about/">OpenStreetMap contributors</a> 
-     '  //copyright stuff
-        //bounds={bounds}
-      /> */}
-
-      {data.stations?.map(
+      {bikeRacks?.map(
         (
-          station // Read through the data in the JSON file
+          bikeRack // Read through the data in the JSON file
         ) => (
           <Marker // Display every Bike Rack in the data
-            key={station.id}
+            key={bikeRack.id}
             position={[
-              station.lat, // get LATITUDE
-              station.lon, // get LONGITUDE
+              bikeRack.the_geom.coordinates[1], // get LATITUDE
+              bikeRack.the_geom.coordinates[0], // get LONGITUDE
             ]}
             icon={
               // Set image of the marker icon
@@ -92,12 +77,19 @@ function App() {
             }
           >
             <Popup>
+              Boro:{" "}
               {
-                station.name // Display location on popup
+                bikeRack.boro_name // Display boro name
               }
-              {" | Capacity of Dock: "}
+              {<br />}
+              Date Installed:{" "}
               {
-                station.capacity // Displays capacity of bike dock
+                bikeRack.date_inst // Display date of installation
+              }
+              {<br />}
+              Risk:{" "}
+              {
+                bikeRack.femafld_t // Display level of flood risk hazard
               }
             </Popup>
           </Marker>
