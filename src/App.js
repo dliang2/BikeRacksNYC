@@ -70,7 +70,7 @@ function App() {
               // Set image of the marker icon
               new Icon({
                 iconUrl:
-                  "https://www.freeiconspng.com/uploads/circle-png-4.png",
+                  "https://www.freeiconspng.com/uploads/purple-circle-icon-5.png",
                 iconSize: [7, 7],
                 iconAnchor: [10, 10],
               })
@@ -109,3 +109,4 @@ function App() {
   );
 }
 export default App;
+//aa
