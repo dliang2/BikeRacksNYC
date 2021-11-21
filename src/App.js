@@ -16,11 +16,12 @@ import "./App.css";
 
 const { BaseLayer } = LayersControl;
 
+// function to updated color of marker based on field femafld_t
 function detIconUrl(femafld_t){
   if(femafld_t != "AREA OF MINIMAL FLOOD HAZARD"){
-      return "https://www.freeiconspng.com/uploads/red-circle-png-transparent-2.png";
+      return "https://www.freeiconspng.com/uploads/red-circle-png-transparent-2.png"; // show red if not minmal hazard
   }
-  return "https://www.freeiconspng.com/uploads/circle-png-4.png";
+  return "https://www.freeiconspng.com/uploads/purple-circle-icon-5.png"; // otherwise show blue/purple 
 }
 
 function App() {
