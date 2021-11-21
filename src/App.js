@@ -16,6 +16,14 @@ import "./App.css";
 
 const { BaseLayer } = LayersControl;
 
+// function to updated color of marker based on field femafld_t
+function detIconUrl(femafld_t){
+  if(femafld_t != "AREA OF MINIMAL FLOOD HAZARD"){
+      return "https://www.freeiconspng.com/uploads/red-circle-png-transparent-2.png"; // show red if not minmal hazard
+  }
+  return "https://www.freeiconspng.com/uploads/purple-circle-icon-5.png"; // otherwise show blue/purple 
+}
+
 function App() {
   const [bikeRacks, setBikeRacks] = useState([]); // Store data in here
 
@@ -70,7 +78,7 @@ function App() {
               // Set image of the marker icon
               new Icon({
                 iconUrl:
-                  "https://www.freeiconspng.com/uploads/purple-circle-icon-5.png",
+                detIconUrl(bikeRack.femafld_t),
                 iconSize: [7, 7],
                 iconAnchor: [10, 10],
               })
