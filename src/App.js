@@ -77,6 +77,16 @@ function App() {
             }
           >
             <Popup>
+              Program: {" "}
+              {
+                bikeRack.program // Display program
+              }
+              {<br />}
+              Asset:{" "}
+              {
+                bikeRack.assetsubty // Display type of rack
+              }
+              {<br />}
               Boro:{" "}
               {
                 bikeRack.boro_name // Display boro name
