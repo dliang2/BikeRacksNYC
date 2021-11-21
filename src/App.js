@@ -17,7 +17,7 @@ import "./App.css";
 const { BaseLayer } = LayersControl;
 
 function detIconUrl(femafld_t){
-  if(femafld_t == "AREA OF MINIMAL FLOOD HAZARD"){
+  if(femafld_t != "AREA OF MINIMAL FLOOD HAZARD"){
       return "https://www.freeiconspng.com/uploads/red-circle-png-transparent-2.png";
   }
   return "https://www.freeiconspng.com/uploads/circle-png-4.png";
