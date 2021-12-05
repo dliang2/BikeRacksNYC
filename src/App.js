@@ -1,8 +1,7 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import { newpage } from "./newpage";
 import { Map } from "./Map";
-import { LandingPage } from "./LandingPage";
+import { InfoPage } from "./InfoPage";
 
 import './App.css';
 
@@ -11,9 +10,8 @@ function App() {
     <div>
       <BrowserRouter>
           <Switch>
-            <Route exact path="/newpage" component={newpage}/>
             <Route exact path="/" component={Map}/>
-            <Route exact path="/LandingPage" component={LandingPage}/>
+            <Route exact path="/InfoPage" component={InfoPage}/>
           </Switch>
       </BrowserRouter>
     </div>
