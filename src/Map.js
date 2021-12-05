@@ -2,7 +2,6 @@ import logo from "./logo.svg";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "leaflet/dist/leaflet.css";
-import {Link} from "react-router-dom";
 
 import {
   MapContainer,
@@ -15,26 +14,20 @@ import { latLngBounds, Icon, tileLayer } from "leaflet";
 
 import "./App.css";
 
-
-
 export const Map = () => {
-  const { BaseLayer } = LayersControl;
+const { BaseLayer } = LayersControl;
+
+// function to updated color of marker based on field femafld_t
+function detIconUrl(femafld_t){
+  if(femafld_t != "AREA OF MINIMAL FLOOD HAZARD"){
+      return "https://www.freeiconspng.com/uploads/red-circle-png-transparent-2.png"; // show red if not minmal hazard
+  }
+  return "https://www.freeiconspng.com/uploads/purple-circle-icon-5.png"; // otherwise show blue/purple 
+}
+
+
   const [bikeRacks, setBikeRacks] = useState([]); // Store data in here
 
-  useEffect(() => {
-    axios
-      .get("https://data.cityofnewyork.us/resource/au7q-njtk.json") // Pull the data
-      .then((res) => setBikeRacks(res.data)) // Set the data
-      .catch((err) => console.log(err));
-  }, []);
-  console.log(bikeRacks);
-  
-  function detIconUrl(femafld_t){
-    if(femafld_t != "AREA OF MINIMAL FLOOD HAZARD"){
-        return "https://www.freeiconspng.com/uploads/red-circle-png-transparent-2.png"; // show red if not minmal hazard
-    }
-    return "https://www.freeiconspng.com/uploads/purple-circle-icon-5.png"; // otherwise show blue/purple 
-  }
   useEffect(() => {
     axios
       .get("https://data.cityofnewyork.us/resource/au7q-njtk.json") // Pull the data
@@ -59,13 +52,11 @@ export const Map = () => {
           &copy; <a href="https://stadiamaps.com/">Stadia Maps</a> 
           &copy; <a href="https://openmaptiles.org/">Open Map Tiles</a> 
           &copy; <a href="https://www.openstreetmap.org/about/">OpenStreetMap contributors</a> |
-          <a href="/LandingPage">LandingPage</a> 
+          <a href="/InfoPage"> Info</a>
           '
-          
-
           />
         </BaseLayer>
-        <a href="/LandingPage">LandingPage</a> 
+
         <BaseLayer name="OpenStreet.Street">
           <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -75,6 +66,7 @@ export const Map = () => {
           />
         </BaseLayer>
       </LayersControl>
+
       {bikeRacks?.map(
         (
           bikeRack // Read through the data in the JSON file
@@ -89,7 +81,7 @@ export const Map = () => {
               // Set image of the marker icon
               new Icon({
                 iconUrl:
-                  "https://www.freeiconspng.com/uploads/purple-circle-icon-5.png",
+                detIconUrl(bikeRack.femafld_t),
                 iconSize: [7, 7],
                 iconAnchor: [10, 10],
               })
@@ -127,5 +119,6 @@ export const Map = () => {
     </MapContainer>
   );
 
-            }
-//export default Map;
+}
+//export default App;
+//aa
