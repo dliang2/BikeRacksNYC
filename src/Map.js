@@ -29,10 +29,11 @@ export const Map = () => {
 
   const [bikeRacks, setBikeRacks] = useState([]); // Store data in here
   const [select, setSelect] = useState("All Boroughs");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
-  const handleChange = (e) => {
+  const handleBorough = (e) => {
     setSelect(e.target.value);
-    console.log(select);
   };
 
   useEffect(() => {
@@ -78,13 +79,12 @@ export const Map = () => {
           .filter(
             (bikeRack) =>
               bikeRack.boro_name == select || select == "All Boroughs"
+            // check if date.inst is greater than start date and less than end date
           )
           ?.map(
             (
               bikeRack // Read through the data in the JSON file
             ) => (
-              // while bikeRack.boro_name = one of the borroghs passed through the drop down select: {<Marker> </Marker>}
-
               <Marker // Display every Bike Rack in the data
                 key={bikeRack.id}
                 position={[
@@ -131,12 +131,11 @@ export const Map = () => {
           )}
       </MapContainer>
       <InputGroup>
-        {/* make an onChange function that sets the selected option as a variable.  Then put it in the comment where I talk about the while loop}*/}
         <FormControl
           as="select"
           defaultValue="All Boroughs"
           name="borough"
-          onChange={handleChange}
+          onChange={handleBorough}
         >
           <option value="All Boroughs">All Boroughs</option>
           <option value="Manhattan">Manhattan</option>
@@ -146,6 +145,9 @@ export const Map = () => {
           <option value="Staten Island">Staten Island</option>
         </FormControl>
       </InputGroup>
+
+      {/* make another form where the user inputs start and end date*/}
+      {/* use another onChange to make {handleTime} to set the start and end date*/}
     </>
   );
 };
