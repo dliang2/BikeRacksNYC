@@ -2,6 +2,21 @@ To start the program type into the terminal
 
 ### `npm start`
 
+It should open [http://localhost:3000] in your browser 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
