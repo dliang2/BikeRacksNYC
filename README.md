@@ -1,6 +1,6 @@
 To start the program type into the terminal 
 
-### 'npm start' 
+### `npm start`
 
 
 
