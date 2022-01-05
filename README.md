@@ -5,7 +5,7 @@ To start the program type into the terminal
 It should open [http://localhost:3000](http://localhost:3000) in your browser 
 
 
-
+The app once started has a INFO section located at the bottom right of the screen.
 
 
 
